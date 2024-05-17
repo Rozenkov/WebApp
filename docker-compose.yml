@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+  app:
+    image: skiddie/tomcatapp:v1.0
+    ports:
+      - "8080"
+    container_name: app
+    depends_on:
+      - db01
+      - mc01
+      - rmq01
+  db01:
+    image: skiddie/mysql:v1.0
+    ports:
+      - "3306:3306"
+    container_name: mysqldb
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+  web:
+    image: skiddie/nginx:v1.0
+    ports:
+      - "80:80"
+    container_name: nginx
+    depends_on:
+      - app
+  mc01:
+    image: memcached:latest
+    ports:
+      - "11211"
+    container_name: memcached
+  rmq01:
+    image: rabbitmq:latest
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672"
+    container_name: rmq
