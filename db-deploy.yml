@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: databasedeploy
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: appdb
