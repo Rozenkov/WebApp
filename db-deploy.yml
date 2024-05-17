@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: databasedeploy
+spec:
+  selector:
+    matchLabels:
+      app: appdb
+  template:
+    metadata:
+      labels:
+        app: appdb
+    spec:
+      containers:
+      - name: appdb_container
+        image: skiddie/mysql
+        volumeMounts:
+          - name: app-db-data
+            mountPath: /var/lib/mysql
+        ports:
+        - name: db-port
+          containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: db-pass
+      nodeSelector:
+        zone: us-east-1a
+      volumes: 
+        - name: app-db-data
+          awsElasticBlockStore:
+            volumeID: vol-0e44d6aaf656fec7e
+            fsType: ext4
+      initContainers:
+        - name: busybox
+          image: busybox:latest
+          args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
+          volumeMounts:
+          - name: app-db-data
+            mountPath: /var/lib/mysql
