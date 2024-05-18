@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app_deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tomcatapp
+  template:
+    metadata:
+      labels:
+        app: tomcatapp
+    spec:
+      containers:
+      - name: tomcatapp_container
+        image: skiddie/tomcatapp
+        ports:
+        - containerPort: 8080
+      initContainers:
+        - name: busybox
+          image: busybox:latest
+          args: ["sh", "for nslookup db01;", "/var/lib/mysql/lost+found"]
+          volumeMounts:
+          - name: app-db-data
+            mountPath: /var/lib/mysql

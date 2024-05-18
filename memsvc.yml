@@ -9,4 +9,4 @@ spec:
   - port: 11211
     targetPort: mem-port
     protocol: TCP
-type: ClusterIP
+  type: ClusterIP

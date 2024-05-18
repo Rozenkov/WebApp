@@ -9,4 +9,4 @@ spec:
   - port: 5672
     targetPort: rmq-port
     protocol: TCP
-type: ClusterIP
+  type: ClusterIP
