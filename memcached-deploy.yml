@@ -13,7 +13,7 @@ spec:
         app: mc01
     spec:
       containers:
-      - name: mc01_container
+      - name: mc01-container
         image: memcached:latest
         ports:
           - name: mem-port 

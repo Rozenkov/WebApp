@@ -13,7 +13,7 @@ spec:
         app: appdb
     spec:
       containers:
-      - name: appdb_container
+      - name: appdb-container
         image: skiddie/mysql
         volumeMounts:
           - name: app-db-data

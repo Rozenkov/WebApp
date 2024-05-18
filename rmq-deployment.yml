@@ -13,7 +13,7 @@ spec:
         app: rmq01
     spec:
       containers:
-      - name: rmq_container
+      - name: rmq-container
         image: rabbitmq:latest
         env:
           - name: RABBITMQ_DEFAULT_USER

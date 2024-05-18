@@ -13,7 +13,7 @@ spec:
         app: tomcatapp
     spec:
       containers:
-      - name: tomcatapp_container
+      - name: tomcatapp-container
         image: skiddie/tomcatapp
         ports:
         - containerPort: 8080
