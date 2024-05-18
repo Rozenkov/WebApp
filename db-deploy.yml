@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: appdb-container
-        image: skiddie/mysql
+        image: skiddie/mysql:v1.0
         volumeMounts:
           - name: app-db-data
             mountPath: /var/lib/mysql
@@ -32,12 +32,12 @@ spec:
       volumes: 
         - name: app-db-data
           awsElasticBlockStore:
-            volumeID: vol-0e44d6aaf656fec7e
+            volumeID: vol-023eae3fe89114a0f
             fsType: ext4
       initContainers:
         - name: busybox
-          image: busybox:latest
-          args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
+          image: busybox
+          args: ["rm", "-rf", "/var/lib/mysql/*"]
           volumeMounts:
           - name: app-db-data
             mountPath: /var/lib/mysql
